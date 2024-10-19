@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/system/audit/controller" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/system/audit/dto" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/system/audit/enums" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/system/audit/repositories" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/system/audit/security" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/system/audit/service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/system/audit/tool" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/application.properties" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/static" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/templates" charset="windows-1251" />
+  </component>
+</project>

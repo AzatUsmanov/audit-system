@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+    <title>Audits</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+<main>
+    <h1>All Audits</h1>
+
+    <form th:action="@{/audit/list}">
+        <button type="submit">Sort by</button>
+
+        <label for="sortAuditField"></label>
+        <select id="sortAuditField" th:name="sortAuditField">
+            <option th:each="field : ${auditFields}" th:value="${field.originalFieldName}" th:text="${field.view}"></option>
+        </select>
+    </form>
+
+    <br>
+
+    <a class="btn btn-success" th:href="@{/audit/create-form}">Add audit</a>
+
+    <br>
+
+    <ul th:each="audit : ${auditList}">
+        <li>
+
+            <p th:text="'Audit id : ' + ${audit.auditName}" id="auditName"></p>
+
+            <p th:text="'Certification Body : ' + ${audit.certificationBody.view}" id="certificationBody"></p>
+
+            <p th:text="'Audit start date : ' + ${audit.auditStartDate}" id="auditStartDate"></p>
+
+            <p th:text="'Audit completion date : ' + ${audit.auditCompletionDate}" id="auditCompletionDate"></p>
+
+            <p th:text="'Office : ' + ${audit.office}" id="office"></p>
+
+            <span>Contact details :  </span><a th:href="${audit.contactDetails}" th:text="${audit.contactDetails}" id="contactDetails"></a>
+
+            <p th:text="'Audit type : ' + ${audit.auditType.view}" id="auditType"></p>
+
+            <p th:text="'Audit plan acceptance : ' + ${audit.auditPlanAcceptance}" id="auditPlanAcceptance"></p>
+
+            <p th:text="'Audit report acceptance : ' + ${audit.auditReportAcceptance}" id="auditReportAcceptance"></p>
+
+            <a th:text="Update"
+               th:href="@{/audit/update-form/{id}(id=${audit.id})}"
+               class="btn btn-success"></a>
+
+            <a th:text="One"
+               th:href="@{/audit/one/{id}(id=${audit.id})}"
+               class="btn btn-success"></a>
+
+            <a th:text="Findings"
+               th:href="@{'/finding/list'(auditId=${audit.id})}"
+               class="btn btn-success"></a>
+
+            <a th:href="@{/finding/create-form/{auditId}(auditId=${audit.id})}"
+               class="btn btn-success">Add Findings</a>
+
+            <br>
+
+        </li>
+    </ul>
+
+</main>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+</body>
+</html>

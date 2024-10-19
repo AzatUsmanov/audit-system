@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+    <title>Audits</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+<main>
+
+    <h1>All findings</h1>
+
+    <form th:action="@{/finding/list}">
+        <button type="submit">Sort by</button>
+
+        <label for="sortFindingField">Finding id : </label>
+        <select id="sortFindingField" th:name="sortFindingField">
+                <option th:each="field : ${findingFields}" th:value="${field.originalFieldName}" th:text="${field.view}"></option>
+        </select>
+
+        <input hidden="hidden" id="auditId" th:name="auditId" th:value="${auditId}">
+    </form>
+
+    <ul th:each="finding : ${findingList}">
+        <li>
+
+            <p th:text="'Finding id : '
+             + ${finding.findingName}"
+               id="findingName"></p>
+
+            <p th:text="'Finding gradation : '
+             + ${finding.findingGradation.view}"
+               id="findingGradation"></p>
+
+            <p th:text="'Finding text : '
+             + ${finding.findingText}"
+               id="findingText"></p>
+
+            <p th:text="'Root cause analysis deadline : '
+            + ${finding.rootCauseAnalysisDeadline}"
+               id="rootCauseAnalysisDeadline"></p>
+
+            <p th:text="'Proposed corrective actions : '
+             + ${finding.proposedCorrectiveActions}"
+               id="proposedCorrectiveActions"></p>
+
+            <p th:text="'Corrective actions implementation deadline : '
+             + ${finding.correctiveActionsImplementationDeadline}"
+               id="correctiveActionsImplementationDeadline"></p>
+
+            <p th:text="'Corrective actions acceptance : '
+            + ${finding.correctiveActionsAcceptance}"
+               id="correctiveActionsAcceptance"></p>
+
+            <p th:text="'Corrective actions implementation information : '
+             + ${finding.correctiveActionsImplementationInformation}"
+               id="correctiveActionsImplementationInformation"></p>
+
+            <p th:text="'Corrective actions implementation factual date : '
+             + ${finding.correctiveActionsImplementationFactualDate}"
+               id="correctiveActionsImplementationFactualDate"></p>
+
+            <p th:text="'Finding closure confirmation : '
+            + ${finding.findingClosureConfirmation}"
+               id="findingClosureConfirmation"></p>
+
+            <a th:text="One"
+               th:href="@{/finding/one/{id}(id=${finding.id})}"
+               class="btn btn-success"></a>
+
+            <a th:text="Update"
+               th:href="@{/finding/update-form/{id}(id=${finding.id})}"
+               class="btn btn-success"></a>
+
+        </li>
+    </ul>
+
+</main>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+</body>
+</html>

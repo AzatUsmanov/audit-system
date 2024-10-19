@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+    <title>Audits</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+<main>
+
+    <p th:text="'Audit id : ' + ${audit.auditName}" id="auditName"></p>
+
+    <p th:text="'Certification Body : ' + ${audit.certificationBody.view}" id="certificationBody"></p>
+
+    <p th:text="'Audit start date : ' + ${audit.auditStartDate}" id="auditStartDate"></p>
+
+    <p th:text="'Audit completion date : ' + ${audit.auditCompletionDate}" id="auditCompletionDate"></p>
+
+    <p th:text="'Office : ' + ${audit.office}" id="office"></p>
+
+    <p th:text="'Contact details : ' + ${audit.contactDetails}" id="contactDetails"></p>
+
+    <p th:text="'Audit type : ' + ${audit.auditType.view}" id="auditType"></p>
+
+    <p th:text="'Audit plan acceptance : ' + ${audit.auditPlanAcceptance}" id="auditPlanAcceptance"></p>
+
+    <p th:text="'Audit report acceptance : ' + ${audit.auditReportAcceptance}" id="auditReportAcceptance"></p>
+
+    <br>
+
+    <label th:if="${audit.accommodationFiles.size() != 0}" for="accommodationFiles">Accommodation files</label>
+
+    <ul th:each="file : ${audit.accommodationFiles}" id="accommodationFiles">
+        <li>
+            <span th:text="${file.originalFilename} + ': '"></span>
+            <a th:text="Download"
+               th:href="@{/files/audit/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+            <a th:text="Delete"
+               th:href="@{/files/audit/delete/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+        </li>
+    </ul>
+
+    <label th:if="${audit.auditPlanFiles.size() != 0}" for="auditPlanFiles">Audit plan files</label>
+
+    <ul th:each="file : ${audit.auditPlanFiles}" id="auditPlanFiles">
+        <li>
+            <span th:text="${file.originalFilename} + ': '"></span>
+            <a th:text="Download"
+               th:href="@{/files/audit/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+            <a th:text="Delete"
+               th:href="@{/files/audit/delete/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+        </li>
+    </ul>
+
+    <div th:if="${audit.auditReportFile != null}" id="auditReportFile">
+        <p>Audit report file</p>
+
+        <span th:text="${audit.auditReportFile.originalFilename} + ': '"></span>
+        <a th:text="Download"
+           th:href="@{/files/audit/{id}(id=${audit.auditReportFile.id})}"
+           class="btn btn-success"></a>
+        <a th:text="Delete"
+           th:href="@{/files/audit/delete/{id}(id=${audit.auditReportFile.id})}"
+           class="btn btn-success"></a>
+    </div>
+
+    <label th:if="${audit.informationForAuditFiles.size() != 0}" for="informationForAuditFiles">Information for audit files</label>
+
+    <ul th:each="file : ${audit.informationForAuditFiles}" id="informationForAuditFiles">
+        <li>
+            <span th:text="${file.originalFilename} + ': '"></span>
+            <a th:text="Download"
+               th:href="@{/files/audit/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+            <a th:text="Delete"
+               th:href="@{/files/audit/delete/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+        </li>
+    </ul>
+
+    <label th:if="${audit.invoiceFiles.size() != 0}" for="invoiceFiles">Invoice files</label>
+
+    <ul th:each="file : ${audit.invoiceFiles}" id="invoiceFiles">
+        <li>
+            <span th:text="${file.originalFilename} + ': '"></span>
+            <a th:text="Download"
+               th:href="@{/files/audit/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+            <a th:text="Delete"
+               th:href="@{/files/audit/delete/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+        </li>
+    </ul>
+
+    <div th:if="${audit.paymentConfirmationFile != null}" id="paymentConfirmationFile">
+        <p>Payment confirmation file</p>
+
+        <span th:text="${audit.paymentConfirmationFile.originalFilename} + ': '"></span>
+        <a th:text="Download"
+           th:href="@{/files/audit/{id}(id=${audit.paymentConfirmationFile.id})}"
+           class="btn btn-success"></a>
+        <a th:text="Delete"
+           th:href="@{/files/audit/delete/{id}(id=${audit.paymentConfirmationFile.id})}"
+           class="btn btn-success"></a>
+    </div>
+
+    <label th:if="${audit.travelFiles.size() != 0}" for="travelFiles">Travel files</label>
+
+    <ul th:each="file : ${audit.travelFiles}" id="travelFiles">
+        <li>
+            <span th:text="${file.originalFilename} + ': '"></span>
+            <a th:text="Download"
+               th:href="@{/files/audit/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+            <a th:text="Delete"
+               th:href="@{/files/audit/delete/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+        </li>
+    </ul>
+
+    <label th:if="${audit.visaFiles.size() != 0}" for="visaFiles">Visa files</label>
+
+    <ul th:each="file : ${audit.visaFiles}" id="visaFiles">
+        <li>
+            <span th:text="${file.originalFilename} + ': '"></span>
+            <a th:text="Download"
+               th:href="@{/files/audit/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+            <a th:text="Delete"
+               th:href="@{/files/audit/delete/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+        </li>
+    </ul>
+
+    <a th:text="Update"
+       th:href="@{/audit/update-form/{id}(id=${audit.id})}"
+       class="btn btn-success"></a>
+
+    <a th:text="Findings"
+       th:href="@{'/finding/list'(auditId=${audit.id})}"
+       class="btn btn-success"></a>
+
+    <a th:href="@{/finding/create-form/{auditId}(auditId=${audit.id})}"
+       class="btn btn-success">Add Findings</a>
+
+</main>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+</body>
+</html>

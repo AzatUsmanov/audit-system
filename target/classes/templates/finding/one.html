@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+    <title>Audits</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+<main>
+
+    <p th:text="'Finding id : '
+             + ${finding.findingName}"
+       id="findingName"></p>
+
+    <p th:text="'Finding gradation : '
+             + ${finding.findingGradation.view}"
+       id="findingGradation"></p>
+
+    <p th:text="'Finding text : '
+             + ${finding.findingText}"
+       id="findingText"></p>
+
+    <p th:text="'Root cause analysis deadline : '
+            + ${finding.rootCauseAnalysisDeadline}"
+       id="rootCauseAnalysisDeadline"></p>
+
+    <p th:text="'Proposed corrective actions : '
+             + ${finding.proposedCorrectiveActions}"
+       id="proposedCorrectiveActions"></p>
+
+    <p th:text="'Corrective actions implementation deadline : '
+             + ${finding.correctiveActionsImplementationDeadline}"
+       id="correctiveActionsImplementationDeadline"></p>
+
+    <p th:text="'Corrective actions acceptance : '
+            + ${finding.correctiveActionsAcceptance}"
+       id="correctiveActionsAcceptance"></p>
+
+    <p th:text="'Corrective actions implementation information : '
+             + ${finding.correctiveActionsImplementationInformation}"
+       id="correctiveActionsImplementationInformation"></p>
+
+    <p th:text="'Corrective actions implementation factual date : '
+             + ${finding.correctiveActionsImplementationFactualDate}"
+       id="correctiveActionsImplementationFactualDate"></p>
+
+    <p th:text="'Finding closure confirmation : '
+            + ${finding.findingClosureConfirmation}"
+       id="findingClosureConfirmation"></p>
+
+    <ul th:each="file : ${finding.correctiveActionsFiles}">
+        <li>
+            <p th:text="${file.originalFilename}"></p>
+            <a th:text="Download"
+               th:href="@{/files/finding/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+            <a th:text="Delete"
+               th:href="@{/files/finding/delete/{id}(id=${file.id})}"
+               class="btn btn-success"></a>
+        </li>
+    </ul>
+
+    <a th:text="Update"
+       th:href="@{/finding/update-form/{id}(id=${finding.id})}"
+       class="btn btn-success"></a>
+
+</main>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+</body>
+</html>

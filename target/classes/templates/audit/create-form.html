@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+    <title>Audits</title>
+
+    <link href="/css/rights.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+
+<main>
+    <h2 class="main-header">Форма для создания аудита</h2>
+
+    <p  class="error" th:if="${errors.containsKey('globalMessage')}" th:text="${errors.get('globalMessage')}"></p><br>
+
+    <form th:method="POST" action="#" th:action="@{/audit/create-form}" th:object="${audit}" enctype="multipart/form-data">
+
+        <label class="PC" for="auditName">Audit id</label>
+        <input type="text" th:field="*{auditName}" id="auditName">
+        <p class="error" th:if="${errors.containsKey('auditName')}" th:text="${errors.get('auditName')}"></p>
+
+        <br>
+
+        <label class="PC" for="certificationBody">Certification Body</label>
+        <select id="certificationBody" th:field="*{certificationBody}">
+            <option th:each="type : ${certificationBodyType}" th:value="${type.name()}" th:text="${type.view}"></option>
+        </select>
+
+        <br>
+
+        <label class="PC" for="auditStartDate">Audit start date</label>
+        <input type="date" th:field="*{auditStartDate}" id="auditStartDate">
+        <p class="error" th:if="${errors.containsKey('auditStartDate')}" th:text="${errors.get('auditStartDate')}"></p>
+
+        <br>
+
+        <label class="PC" for="auditCompletionDate">Audit completion date</label>
+        <input type="date" th:field="*{auditCompletionDate}" id="auditCompletionDate">
+        <p class="error" th:if="${errors.containsKey('auditCompletionDate')}" th:text="${errors.get('auditCompletionDate')}"></p>
+
+        <br>
+
+        <label class="PC" for="office">Office</label>
+        <input type="text" th:field="*{office}" id="office">
+        <p  class="error" th:if="${errors.containsKey('office')}" th:text="${errors.get('office')}"></p>
+
+        <br>
+
+        <label class="PC" for="contactDetails">Contact details</label>
+        <input type="url" th:field="*{contactDetails}" id="contactDetails">
+        <p  class="error" th:if="${errors.containsKey('contactDetails')}" th:text="${errors.get('contactDetails')}"></p>
+
+        <br>
+
+        <label class="PC" for="auditType">Audit type</label>
+        <select id="auditType" th:field="*{auditType}">
+            <option th:each="type : ${auditType}" th:value="${type.name()}" th:text="${type.view}"></option>
+        </select>
+
+        <br>
+
+        <label class="PC" for="travelInput">Travel documents</label>
+        <input id="travelInput" multiple type="file" th:field="*{travelFiles}">
+        <button type="button" id="travelButton">Clear input</button>
+        <p id="travelOutput">Selected files:</p>
+
+        <br>
+
+        <label class="PC" for="accommodationInput">Accommodation documents</label>
+        <input id="accommodationInput" multiple type="file" th:field="*{accommodationFiles}">
+        <button type="button" id="accommodationButton">Clear input</button>
+        <p id="accommodationOutput">Selected files:</p>
+
+        <br>
+
+        <label class="PC" for="visaInput">Visa documents</label>
+        <input id="visaInput" multiple type="file" th:field="*{visaFiles}">
+        <button type="button" id="visaButton">Clear input</button>
+        <p id="visaOutput">Selected files:</p>
+
+        <br>
+
+        <label class="PC" for="informationForAuditInput">Information for audit</label>
+        <input id="informationForAuditInput" multiple type="file" th:field="*{informationForAuditFiles}">
+        <button type="button" id="informationForAuditButton">Clear input</button>
+        <p id="informationForAuditOutput">Selected files:</p>
+
+        <br>
+
+        <label class="PCorCB" for="auditPlanInput">Audit plan</label>
+        <input id="auditPlanInput" multiple type="file" th:field="*{auditPlanFiles}">
+        <button type="button" id="auditPlanButton">Clear input</button>
+        <p id="auditPlanOutput">Selected files:</p>
+
+        <br>
+
+        <label class="PC" for="auditPlanAcceptance">Audit plan acceptance</label>
+        <input type="checkbox" th:field="*{auditPlanAcceptance}" id="auditPlanAcceptance">
+
+        <br>
+
+        <label class="PCorCB" for="auditReportInput">Audit report</label>
+        <input type="file" th:field="*{auditReportFile}" id="auditReportInput">
+        <button type="button" id="auditReportButton">Clear input</button>
+
+        <br>
+
+        <label class="PC" for="auditReportAcceptance">Audit report acceptance</label>
+        <input type="checkbox" th:field="*{auditReportAcceptance}" id="auditReportAcceptance">
+
+        <br>
+
+        <label class="PCorCB" for="invoiceInput">Invoice</label>
+        <input id="invoiceInput" multiple type="file" th:field="*{invoiceFiles}">
+        <button type="button" id="invoiceButton">Clear input</button>
+        <p id="invoiceOutput">Selected files:</p>
+
+        <br>
+
+        <label class="PC" for="paymentConfirmationInput">Payment confirmation</label>
+        <input type="file" th:field="*{paymentConfirmationFile}" id="paymentConfirmationInput">
+        <button type="button" id="paymentConfirmationButton">Clear input</button>
+
+        <br>
+
+        <input type="reset" value="отчистить форму">
+
+        <input type="submit" value="Создать audit">
+
+    </form>
+
+    <script>
+
+        const travelInput = document.querySelector("#travelInput");
+        const travelOutput = document.querySelector("#travelOutput");
+        const travelButton = document.querySelector("#travelButton");
+
+        travelInput.addEventListener("change", () => {
+          travelOutput.innerText = '';
+
+          for (const file of travelInput.files) {
+            travelOutput.innerText += `\n${file.name}`;
+          }
+        });
+
+        travelButton.addEventListener("click", () => {
+          travelInput.value = '';
+          travelOutput.innerText = '';
+        });
+
+        const accommodationInput = document.querySelector("#accommodationInput");
+        const accommodationOutput = document.querySelector("#accommodationOutput");
+        const accommodationButton = document.querySelector("#accommodationButton");
+
+        accommodationInput.addEventListener("change", () => {
+          accommodationOutput.innerText = '';
+
+          for (const file of accommodationInput.files) {
+            accommodationOutput.innerText += `\n${file.name}`;
+          }
+        });
+
+        accommodationButton.addEventListener("click", () => {
+          accommodationInput.value = '';
+          accommodationOutput.innerText = '';
+        });
+
+        const visaInput = document.querySelector("#visaInput");
+        const visaOutput = document.querySelector("#visaOutput");
+        const visaButton = document.querySelector("#visaButton");
+
+        visaInput.addEventListener("change", () => {
+          visaOutput.innerText = '';
+
+          for (const file of visaInput.files) {
+            visaOutput.innerText += `\n${file.name}`;
+          }
+        });
+
+        visaButton.addEventListener("click", () => {
+          visaInput.value = '';
+          visaOutput.innerText = '';
+        });
+
+        const informationForAuditInput = document.querySelector("#informationForAuditInput");
+        const informationForAuditOutput = document.querySelector("#informationForAuditOutput");
+        const informationForAuditButton = document.querySelector("#informationForAuditButton");
+
+        informationForAuditInput.addEventListener("change", () => {
+          informationForAuditOutput.innerText = '';
+
+          for (const file of informationForAuditInput.files) {
+            informationForAuditOutput.innerText += `\n${file.name}`;
+          }
+        });
+
+        informationForAuditButton.addEventListener("click", () => {
+          informationForAuditInput.value = '';
+          informationForAuditOutput.innerText = '';
+        });
+
+        const auditPlanInput = document.querySelector("#auditPlanInput");
+        const auditPlanOutput = document.querySelector("#auditPlanOutput");
+        const auditPlanButton = document.querySelector("#auditPlanButton");
+
+        auditPlanInput.addEventListener("change", () => {
+          auditPlanOutput.innerText = '';
+
+          for (const file of auditPlanInput.files) {
+            auditPlanOutput.innerText += `\n${file.name}`;
+          }
+        });
+
+        auditPlanButton.addEventListener("click", () => {
+          auditPlanInput.value = '';
+          auditPlanOutput.innerText = '';
+        });
+
+        const invoiceInput = document.querySelector("#invoiceInput");
+        const invoiceOutput = document.querySelector("#invoiceOutput");
+        const invoiceButton = document.querySelector("#invoiceButton");
+
+        invoiceInput.addEventListener("change", () => {
+          invoiceOutput.innerText = '';
+
+          for (const file of invoiceInput.files) {
+            invoiceOutput.innerText += `\n${file.name}`;
+          }
+        });
+
+        invoiceButton.addEventListener("click", () => {
+          invoiceInput.value = '';
+          invoiceOutput.innerText = '';
+        });
+
+        const auditReportInput = document.querySelector("#auditReportInput");
+        const auditReportButton = document.querySelector("#auditReportButton");
+
+        auditReportButton.addEventListener("click", () => {
+          auditReportInput.value = '';
+        });
+
+        const paymentConfirmationInput = document.querySelector("#paymentConfirmationInput");
+        const paymentConfirmationButton = document.querySelector("#paymentConfirmationButton");
+
+        paymentConfirmationButton.addEventListener("click", () => {
+          paymentConfirmationInput.value = '';
+        });
+    </script>
+
+</main>
+
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+
+</body>
+</html>

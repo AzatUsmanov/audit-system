@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+    <title>Audits</title>
+
+    <link href="/css/rights.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<!--    <script type="text/javascript" th:src="@{/js/finding.js}"></script>-->
+
+</head>
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+
+<main>
+
+    <h2 class="main-header">Форма для обновления комментария</h2>
+
+    <p class="error" th:if="${errors.containsKey('globalMessage')}" th:text="${errors.get('globalMessage')}"></p><br>
+
+    <form method="POST" action="#" th:action="@{/finding/update-form}" th:object="${finding}" enctype="multipart/form-data">
+
+<!--        <label for="id">id</label>-->
+        <input hidden="hidden" type="text" th:field="*{id}" id="id">
+
+        <br>
+
+        <label class="PCorCB" for="findingId">Finding id</label>
+        <input type="text" th:field="*{findingName}" id="findingId">
+        <p class="error" th:if="${errors.containsKey('findingName')}" th:text="${errors.get('findingName')}"></p>
+
+        <br>
+
+        <label class="PCorCB" for="findingGradation">Finding gradation</label>
+        <select id="findingGradation" th:field="*{findingGradation}">
+            <option th:each="type : ${findingGradationType}" th:value="${type.name()}" th:text="${type.view}"></option>
+        </select>
+
+        <br>
+
+        <label class="PCorCB" for="findingText">Finding text</label>
+        <textarea id="findingText" th:field="*{findingText}"></textarea>
+        <p class="error" th:if="${errors.containsKey('findingText')}" th:text="${errors.get('findingText')}"></p>
+
+        <br>
+
+        <label class="PCorCB" for="rootCauseAnalysisDeadline">Root cause analysis deadline</label>
+        <input type="date" th:field="*{rootCauseAnalysisDeadline}" id="rootCauseAnalysisDeadline">
+
+        <br>
+
+        <label class="PC" for="proposedCorrectiveActions">Proposed corrective actions</label>
+        <input type="text" th:field="*{proposedCorrectiveActions}" id="proposedCorrectiveActions">
+        <p class="error" th:if="${errors.containsKey('proposedCorrectiveActions')}" th:text="${errors.get('proposedCorrectiveActions')}"></p>
+
+        <br>
+
+        <label class="PC" for="correctiveActionsImplementationDeadline">Corrective actions implementation deadline</label>
+        <input type="date" th:field="*{correctiveActionsImplementationDeadline}"
+               id="correctiveActionsImplementationDeadline">
+
+        <br>
+
+        <label class="CB" for="correctiveActionsAcceptance">Corrective actions acceptance</label>
+        <input type="date" th:field="*{correctiveActionsAcceptance}" id="correctiveActionsAcceptance">
+
+        <br>
+
+        <label class="PC" for="correctiveActionsImplementationInformation">Corrective actions implementation information</label>
+        <input id="correctiveActionsImplementationInformation" type="text"
+               th:field="*{correctiveActionsImplementationInformation}">
+        <p class="error" th:if="${errors.containsKey('correctiveActionsImplementationInformation')}" th:text="${errors.get('correctiveActionsImplementationInformation')}"></p>
+
+        <br>
+
+        <label class="PC" for="correctiveActionsInput">corrective actions implementation objective evidences</label>
+        <input id="correctiveActionsInput" multiple type="file" th:field="*{correctiveActionsFiles}">
+        <button type="button" id="correctiveActionsButton">Clear input</button>
+        <p id="correctiveActionsOutput">Selected files:</p>
+
+        <br>
+
+        <label class="PC" for="correctiveActionsImplementationFactualDate">Corrective actions implementation factual date</label>
+        <input id="correctiveActionsImplementationFactualDate" type="date"
+               th:field="*{correctiveActionsImplementationFactualDate}">
+
+        <br>
+
+        <label class="CB" for="findingClosureConfirmation">Finding closure confirmation</label>
+        <input id="findingClosureConfirmation" type="date" th:field="*{findingClosureConfirmation}">
+
+        <br>
+
+        <input type="reset" value="отчистить форму">
+
+        <input type="submit" value="обновить finding">
+
+    </form>
+
+    <script>
+        const correctiveActionsInput = document.querySelector(
+        "#correctiveActionsInput");
+        const correctiveActionsOutput = document.querySelector(
+        "#correctiveActionsOutput");
+        const correctiveActionsButton = document.querySelector(
+        "#correctiveActionsButton");
+
+        correctiveActionsInput.addEventListener("change", () => {
+          correctiveActionsOutput.innerText = '';
+
+          for (const file of correctiveActionsInput.files) {
+            correctiveActionsOutput.innerText += `\n${file.name}`;
+          }
+        });
+
+        correctiveActionsButton.addEventListener("click", () => {
+          correctiveActionsInput.value = '';
+          correctiveActionsOutput.innerText = '';
+        });
+    </script>
+
+</main>
+
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+
+</body>
+</html>

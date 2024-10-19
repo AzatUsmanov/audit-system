@@ -1,0 +1,15 @@
+.PC {
+    color : DarkRed;
+}
+
+.CB {
+    color : DarkGreen;
+}
+
+.PCorCB {
+    color : DarkBlue;
+}
+
+.error{
+    color : red;
+}
